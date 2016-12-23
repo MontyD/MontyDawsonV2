@@ -1,0 +1,114 @@
+$background: #E0E0E0;
+$black: #212121;
+$darkGrey: #4e4e4e;
+$white: #f1f1f1;
+$accent: #00BCD4;
+$box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1);
+$underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $background, 0 -0.03em $background, 0.06em 0 $background, -0.06em 0 $background, 0.09em 0 $background, -0.09em 0 $background, 0.12em 0 $background, -0.12em 0 $background, 0.15em 0 $background, -0.15em 0 $background;
+@mixin panel() {
+    position  : relative;
+    height    : 100vh;
+    width     : 100%;
+    margin    : 0 auto;
+    padding   : 0.5em 0.8em;
+    box-sizing: border-box;
+    overflow  : hidden;
+}
+@mixin vertically-center() {
+    display  : block;
+    position : absolute;
+    top      : 45%;
+    left     : 50%;
+    transform: translate(-50%, -50%);
+}
+@mixin shard($position: top) {
+    &:before {
+        content   : ' ';
+        background: $white;
+        display   : block;
+        position  : absolute;
+        top       : -80%;
+        left      : -100px;
+        height    : 100%;
+        width     : 150%;
+        transform : rotate(-10deg);
+        box-shadow: $box-shadow;
+    }
+}
+
+body,
+html {
+    padding         : 0;
+    margin          : 0;
+    background-image: linear-gradient( $background, $white );
+    color           : $black;
+    font-family     : 'Open Sans';
+    width           : 100vw;
+    overflow-x      : hidden;
+}
+
+h1,
+h3,
+h5 {
+    margin     : 0;
+    font-family: 'Libre Baskerville';
+    font-weight: normal;
+}
+
+h2,
+h4 {
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+p {
+    text-align : justify;
+    line-height: 1.7em;
+    color      : $darkGrey;
+    user-select: none;
+}
+
+a {
+  position: relative;
+  color: $darkGrey;
+  text-shadow: $underline-avoider;
+  text-decoration: none;
+  z-index: 1;
+  user-select: none;
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    display: inline-block;
+    bottom: 1px;
+    left: 0.5%;
+    width: 99%;
+    height: 2px;
+    background: $accent;
+    z-index: -1;
+  }
+}
+
+header {
+    @include panel();
+    @include shard(top);
+
+    article {
+        @include vertically-center();
+        width    : 95%;
+        max-width: 350px;
+    }
+
+    p {
+      padding: 0 0.1em;
+      box-sizing: border-box;
+    }
+
+}
+
+main {
+  @include panel();
+}
