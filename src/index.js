@@ -1,4 +1,3 @@
-import html from './public/index.html';
 import style from './index.scss';
 
 (() => {
