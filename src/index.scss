@@ -9,7 +9,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1);
 $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $background, 0 -0.03em $background, 0.06em 0 $background, -0.06em 0 $background, 0.09em 0 $background, -0.09em 0 $background, 0.12em 0 $background, -0.12em 0 $background, 0.15em 0 $background, -0.15em 0 $background;
 @mixin panel() {
     position  : relative;
-    height    : 100vh;
+    height    : 110vh;
     width     : 100%;
     margin    : 0 auto;
     padding   : 0.5em 0.8em;
@@ -48,13 +48,14 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
 
 body,
 html {
-    padding    : 0;
-    margin     : 0;
-    background : $background;
-    color      : $black;
-    font-family: 'Open Sans';
-    width      : 100vw;
-    overflow-x : hidden;
+    padding               : 0;
+    margin                : 0;
+    background            : $white;
+    color                 : $black;
+    font-family           : 'Open Sans';
+    width                 : 100vw;
+    overflow-x            : hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -103,6 +104,7 @@ a {
 header {
     @include panel();
     @include shard(top);
+    background: $background;
 
     &:before {
         animation-name           : reveal;
@@ -177,6 +179,7 @@ main {
 footer {
     @include panel();
     @include shard(bottom);
+    background: $background;
 
     ul {
         @include vertically-center();
@@ -197,12 +200,23 @@ footer {
         text-align: center;
     }
 }
+
 .context-menu {
-  position: absolute;
-  display: inline-block;
-  margin: 0;
-  padding: 0.5em;
-  box-sizing: border-box;
+    position  : absolute;
+    display   : inline-block;
+    margin    : 0;
+    padding   : 0.5em;
+    box-sizing: border-box;
+
+    .closed {
+        visibility: hidden;
+        opacity   : 0;
+    }
+
+    .open {
+        visibility: visible;
+        opacity   : 1;
+    }
 }
 @keyframes reveal {
     0% {

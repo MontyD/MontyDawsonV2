@@ -3,6 +3,7 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 var ENV = process.env.npm_lifecycle_event;
 var isProd = ENV === 'build';
@@ -21,17 +22,8 @@ module.exports = (function() {
         path: __dirname + '/dist',
 
         publicPath: isProd ? '/' : 'http://localhost:8080/',
-
-        filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-
-        chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+        
     };
-
-    if (isProd) {
-        config.devtool = 'source-map';
-    } else {
-        config.devtool = 'eval-source-map';
-    }
 
     config.module = {
         preLoaders: [],
@@ -41,7 +33,7 @@ module.exports = (function() {
             exclude: /node_modules/
         }, {
             test: /\.scss$/,
-            loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader!')
+            loader: ExtractTextPlugin.extract('style-loader', 'css-loader?postcss-loader!sass-loader!')
         }, {
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
             loader: 'file'
@@ -62,15 +54,11 @@ module.exports = (function() {
     config.plugins.push(
         new HtmlWebpackPlugin({
             template: './src/public/index.html',
-            inject: 'body'
+            inject: 'body',
+            inlineSource: '.(js|css)$'
         }),
-
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Extract css files
-        // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin('[name].[hash].css', {
-            disable: !isProd
-        })
+        new HtmlWebpackInlineSourcePlugin(),
+        new ExtractTextPlugin('[name].[hash].css')
     );
 
     if (isProd) {

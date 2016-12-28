@@ -24,7 +24,7 @@ class DescriptionCrawler {
         element.href = '#';
         element.title = data;
         element.innerHTML = data;
-        attachEvent('click', element, this.crawlNext);
+        attachEvent('click', element, this.crawlNext.bind(this));
         return element;
 
     }
