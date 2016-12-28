@@ -4,6 +4,7 @@ $darkGrey: #4e4e4e;
 $lightGrey: #aeaeae;
 $white: #ffffff;
 $accent: #00BCD4;
+$dark: #0D47A1;
 $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1);
 $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $background, 0 -0.03em $background, 0.06em 0 $background, -0.06em 0 $background, 0.09em 0 $background, -0.09em 0 $background, 0.12em 0 $background, -0.12em 0 $background, 0.15em 0 $background, -0.15em 0 $background;
 @mixin panel() {
@@ -13,7 +14,6 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
     margin    : 0 auto;
     padding   : 0.5em 0.8em;
     box-sizing: border-box;
-    overflow  : hidden;
 }
 @mixin vertically-center() {
     display    : block;
@@ -24,12 +24,20 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
     perspective: (1px);
 }
 @mixin shard($position: top) {
+    position: relative;
+    overflow: hidden;
+
     &:before {
         content   : ' ';
         background: $white;
         display   : block;
         position  : absolute;
-        top       : -80%;
+        @if $position == top {
+            top: -80%;
+        }
+        @else {
+            bottom: -80%;
+        }
         left      : -100px;
         height    : 100%;
         width     : 150%;
@@ -40,25 +48,21 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
 
 body,
 html {
-    padding         : 0;
-    margin          : 0;
-    background-image: linear-gradient( $background, $white );
-    color           : $black;
-    font-family     : 'Open Sans';
-    width           : 100vw;
-    overflow-x      : hidden;
+    padding    : 0;
+    margin     : 0;
+    background : $background;
+    color      : $black;
+    font-family: 'Open Sans';
+    width      : 100vw;
+    overflow-x : hidden;
 }
 
 h1,
+h2,
 h3,
 h5 {
     margin     : 0;
     font-family: 'Libre Baskerville';
-    font-weight: normal;
-}
-
-h2,
-h4 {
     font-weight: normal;
 }
 
@@ -67,6 +71,8 @@ h1 {
 }
 
 p {
+    padding    : 0 0.1em;
+    box-sizing : border-box;
     text-align : justify;
     line-height: 1.7em;
     color      : $darkGrey;
@@ -100,7 +106,7 @@ header {
 
     &:before {
         animation-name           : reveal;
-        animation-duration       : .8s;
+        animation-duration       : 0.8s;
         animation-timing-function: ease-out;
         animation-iteration-count: 1;
     }
@@ -146,6 +152,57 @@ header {
 
 main {
     @include panel();
+    background: $dark;
+
+    article {
+        @include vertically-center();
+        width    : 90%;
+        max-width: 400px;
+    }
+
+    h2 {
+        color    : darken($dark, 10);
+        font-size: 3em;
+        margin   : 0;
+        padding  : 0;
+    }
+
+    p {
+        color      : $white;
+        margin-top : 0.2em;
+        padding-top: 0;
+    }
+}
+
+footer {
+    @include panel();
+    @include shard(bottom);
+
+    ul {
+        @include vertically-center();
+        display   : block;
+        box-sizing: border-box;
+        padding   : 2em 0;
+        width     : 100%;
+    }
+
+    li {
+        display   : block;
+        margin    : 1em auto;
+        width     : 100%;
+        list-style: none;
+    }
+
+    a {
+        text-align: center;
+    }
+}
+.context-menu {
+  position: absolute;
+  display: inline-block;
+  margin: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
 }
 @keyframes reveal {
     0% {

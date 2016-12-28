@@ -1,9 +1,12 @@
+import attachEvent from './attach-event.js';
+
 class DescriptionCrawler {
 
     constructor(element) {
 
         this.element = element;
         this.data = this.element.innerHTML.split('. ');
+        this.data = this.randomiseArray(this.data);
 
         this.dotdotdot = document.createElement('span');
         this.dotdotdot.innerHTML = '...';
@@ -21,20 +24,8 @@ class DescriptionCrawler {
         element.href = '#';
         element.title = data;
         element.innerHTML = data;
-        this.attachEvent('click', element, this.crawlNext);
+        attachEvent('click', element, this.crawlNext);
         return element;
-
-    }
-
-    attachEvent(evnt, elem, func) {
-
-        if (elem.addEventListener) {
-            elem.addEventListener(evnt, func.bind(this), false);
-        } else if (elem.attachEvent) {
-            elem.attachEvent('on' + evnt, func.bind(this));
-        } else {
-            elem[evnt] = func;
-        }
 
     }
 
@@ -57,6 +48,20 @@ class DescriptionCrawler {
       if (this.index >= this.data.length) {
         this.index = 0;
       }
+    }
+
+    randomiseArray(array) {
+      let currentIndex = array.length, temporaryValue, randomIndex;
+
+      while (currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
     }
 
 }
