@@ -22,11 +22,10 @@ module.exports = (function() {
         path: __dirname + '/dist',
 
         publicPath: isProd ? '/' : 'http://localhost:8080/',
-        
+
     };
 
     config.module = {
-        preLoaders: [],
         loaders: [{
             test: /\.js$/,
             loader: 'babel',

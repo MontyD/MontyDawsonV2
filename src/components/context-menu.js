@@ -40,9 +40,9 @@ class ContextMenu {
             this.element.style.top = '-500px';
             return;
         }
-        this.element.style.left = e.clientX + 'px';
-        this.element.style.top = e.clientY + 'px';
-        this.element.className = 'content-menu open';
+        this.element.style.left = e.pageX + 'px';
+        this.element.style.top = e.pageY + 'px';
+        this.element.className = 'context-menu open';
     }
 
     leftClick() {

@@ -7,6 +7,7 @@ $accent: #00BCD4;
 $dark: #0D47A1;
 $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1);
 $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $background, 0 -0.03em $background, 0.06em 0 $background, -0.06em 0 $background, 0.09em 0 $background, -0.09em 0 $background, 0.12em 0 $background, -0.12em 0 $background, 0.15em 0 $background, -0.15em 0 $background;
+$sans-serif: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
 @mixin panel() {
     position  : relative;
     height    : 110vh;
@@ -18,7 +19,7 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
 @mixin vertically-center() {
     display    : block;
     position   : absolute;
-    top        : 45%;
+    top        : 40%;
     left       : 50%;
     transform  : translate(-50%, -50%);
     perspective: (1px);
@@ -33,10 +34,10 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
         display   : block;
         position  : absolute;
         @if $position == top {
-            top: -80%;
+            top: -90%;
         }
         @else {
-            bottom: -80%;
+            bottom: -90%;
         }
         left      : -100px;
         height    : 100%;
@@ -52,8 +53,7 @@ html {
     margin                : 0;
     background            : $white;
     color                 : $black;
-    font-family           : 'Open Sans';
-    width                 : 100vw;
+    font-family           : $sans-serif;
     overflow-x            : hidden;
     -webkit-font-smoothing: antialiased;
 }
@@ -92,7 +92,7 @@ a {
         content   : ' ';
         position  : absolute;
         display   : inline-block;
-        bottom    : 1px;
+        bottom    : 0;
         left      : 0.5%;
         width     : 99%;
         height    : 1px;
@@ -217,6 +217,7 @@ footer {
         visibility: visible;
         opacity   : 1;
     }
+
 }
 @keyframes reveal {
     0% {

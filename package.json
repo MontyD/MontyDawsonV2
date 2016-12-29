@@ -7,7 +7,7 @@
     "build": "rimraf dist && webpack --bail --progress --profile",
     "serve": "webpack-dev-server --history-api-fallback --inline --progress",
     "start": "npm run server",
-    "dev": "webpack-dev-server --hot --inline --open"
+    "dev": "webpack-dev-server --hot --inline --host 0.0.0.0"
   },
   "repository": {
     "type": "git",
