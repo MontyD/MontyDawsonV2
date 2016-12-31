@@ -4,6 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+var OffLinePlugin = require('offline-plugin');
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 var ENV = process.env.npm_lifecycle_event;
 var isProd = ENV === 'build';
@@ -22,6 +24,11 @@ module.exports = (function() {
         path: __dirname + '/dist',
 
         publicPath: isProd ? '/' : 'http://localhost:8080/',
+
+        filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
+
+        chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+
 
     };
 
@@ -47,18 +54,20 @@ module.exports = (function() {
         })
     ];
 
-    config.plugins = [];
-
-
-    config.plugins.push(
+    config.plugins = [
         new HtmlWebpackPlugin({
             template: './src/public/index.html',
             inject: 'body',
             inlineSource: '.(js|css)$'
         }),
         new HtmlWebpackInlineSourcePlugin(),
-        new ExtractTextPlugin('[name].[hash].css')
-    );
+        new ExtractTextPlugin('[name].[hash].css'),
+        new OffLinePlugin(),
+        new FaviconsWebpackPlugin({
+            logo: './src/favicon.png',
+            background: '#0D47A1'
+        })
+    ];
 
     if (isProd) {
         config.plugins.push(
@@ -70,9 +79,9 @@ module.exports = (function() {
             }])
         );
     }
+
     config.devServer = {
-        contentBase: './src/public',
-        stats: 'minimal'
+        contentBase: './src/public'
     };
 
     return config;

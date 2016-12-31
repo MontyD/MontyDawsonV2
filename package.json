@@ -5,9 +5,8 @@
   "main": "public/index.html",
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
-    "serve": "webpack-dev-server --history-api-fallback --inline --progress",
-    "start": "npm run server",
-    "dev": "webpack-dev-server --hot --inline --host 0.0.0.0"
+    "dev": "webpack-dev-server --hot --inline --host 0.0.0.0",
+    "start": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,14 +32,17 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "favicons-webpack-plugin": "0.0.7",
     "file-loader": "^0.9.0",
     "html-webpack-inline-source-plugin": "0.0.6",
     "html-webpack-plugin": "^2.24.1",
     "node-sass": "^4.1.1",
+    "offline-plugin": "^4.5.3",
     "postcss-loader": "^1.2.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.1.1",
+    "serviceworker-webpack-plugin": "^0.1.7",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"

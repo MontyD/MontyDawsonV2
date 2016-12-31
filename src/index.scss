@@ -11,26 +11,21 @@ $underline-avoider: 0.03em 0 $background, -0.03em 0 $background, 0 0.03em $backg
 $sans-serif: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
 $container: 450px;
 @mixin panel() {
-    position  : relative;
-    height    : 110vh;
-    width     : 100%;
-    margin    : 0 auto;
-    padding   : 0.5em 0.8em;
-    box-sizing: border-box;
-}
-@mixin vertically-center() {
-    display    : block;
-    position   : absolute;
-    top        : 40%;
-    left       : 50%;
-    transform  : translate(-50%, -50%);
-    perspective: (1px);
+    position       : relative;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    height         : 100vh;
+    width          : 100%;
+    margin         : 0 auto;
+    padding        : 0.5em 0.8em;
+    box-sizing     : border-box;
 }
 @mixin shard($position: top) {
     position: relative;
     overflow: hidden;
 
-    &:before {
+    &:after {
         content   : ' ';
         background: $white;
         display   : block;
@@ -95,29 +90,25 @@ header {
     @include panel();
     @include shard(top);
     background: $background;
+    z-index: 1;
 
-    &:before {
+    &:after {
         animation-name           : reveal;
         animation-duration       : 0.8s;
         animation-timing-function: ease-out;
         animation-iteration-count: 1;
+        z-index: 10;
     }
 
     article {
-        @include vertically-center();
-        width    : 95%;
-        max-width: $container;
+        width       : 95%;
+        max-width   : $container;
         border-right: 1px solid $lightGrey;
-        animation-name           : fade;
-        animation-duration       : 1.3s;
-        animation-timing-function: ease-in;
-        animation-iteration-count: 1;
 
         p {
-            animation-name           : fade;
-            animation-duration       : 1.5s;
-            animation-timing-function: ease-in;
-            animation-iteration-count: 1;
+            text-align: left;
+            padding   : 0 0.1em;
+            box-sizing: border-box;
         }
 
         a {
@@ -152,11 +143,6 @@ header {
             animation-iteration-count: 1;
         }
     }
-
-    p {
-        padding   : 0 0.1em;
-        box-sizing: border-box;
-    }
 }
 
 main {
@@ -164,7 +150,6 @@ main {
     background: $dark;
 
     article {
-        @include vertically-center();
         width    : 95%;
         max-width: $container;
     }
@@ -185,20 +170,30 @@ main {
 
 footer {
     @include panel();
-    @include shard(bottom);
     background: $background;
 
+    article {
+        width    : 95%;
+        max-width: $container;
+    }
+
+    h2 {
+        text-align: center;
+        font-size : 2.5em;
+        margin    : 0;
+    }
+
     ul {
-        @include vertically-center();
-        display   : block;
-        box-sizing: border-box;
-        padding   : 2em 0;
+        padding   : 0;
         width     : 100%;
+        overflow  : hidden;
+        box-sizing: border-box;
+        border-left: 1px solid $accent;
     }
 
     li {
         display   : block;
-        margin    : 3em auto;
+        margin    : 3.6em auto;
         width     : 100%;
         list-style: none;
         text-align: center;
@@ -216,18 +211,17 @@ footer {
         display  : block;
         width    : 100%;
         position : relative;
-        color    : $white;
         font-size: 1.1em;
         z-index  : 1;
 
         &:before {
             content   : ' ';
             position  : absolute;
-            top       : -75%;
+            top       : -72%;
             width     : 200%;
             height    : 250%;
             left      : -50%;
-            background: transparentize($accent, 0.5);
+            background: transparentize($lightGrey, 0.5);
             z-index   : -1;
             transform : rotate(10deg);
             transition: background 0.4s ease;
@@ -235,7 +229,7 @@ footer {
 
         &:hover {
             &:before {
-                background: $accent;
+                background: $lightGrey;
             }
         }
     }
@@ -250,6 +244,7 @@ footer {
     min-width : 150px;
     background: $offWhite;
     box-shadow: $box-shadow;
+    z-index   : 10;
 
     a {
         display  : block;
@@ -279,19 +274,6 @@ footer {
 
     100% {
         transform: rotate(-10deg) scale(1);
-    }
-}
-@keyframes fade {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
     }
 }
 @keyframes slideDown {

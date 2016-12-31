@@ -2,6 +2,7 @@ import style from './index.scss';
 import DescriptionCrawler from './components/Description-Crawler.js';
 import ContextMenu from './components/Context-Menu.js';
 import ViewHeightFix from './components/View-Height-Fix.js';
+import OfflinePlugin from 'offline-plugin/runtime';
 
 (() => {
 
@@ -18,5 +19,7 @@ import ViewHeightFix from './components/View-Height-Fix.js';
     }]);
 
     const viewHeightFix = new ViewHeightFix(['header', 'main', 'footer']);
+
+    const offline = OfflinePlugin.install();
 
 })();
