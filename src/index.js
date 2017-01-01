@@ -1,4 +1,4 @@
-import style from './index.scss';
+import style from '../style/index.scss';
 import DescriptionCrawler from './components/Description-Crawler.js';
 import ContextMenu from './components/Context-Menu.js';
 import ViewHeightFix from './components/View-Height-Fix.js';

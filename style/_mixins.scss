@@ -1,0 +1,33 @@
+@mixin panel() {
+    position       : relative;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    height         : 100vh;
+    width          : 100%;
+    margin         : 0 auto;
+    padding        : 0.5em 0.8em;
+    box-sizing     : border-box;
+}
+@mixin shard($position: top) {
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+        content   : ' ';
+        background: $white;
+        display   : block;
+        position  : absolute;
+        @if $position == top {
+            top: -90%;
+        }
+        @else {
+            bottom: -90%;
+        }
+        left      : -50%;
+        height    : 100%;
+        width     : 200%;
+        transform : rotate(-10deg);
+        box-shadow: $box-shadow;
+    }
+}
