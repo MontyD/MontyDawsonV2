@@ -21,7 +21,7 @@ module.exports = (function() {
 
     config.output = {
 
-        path: __dirname + '/public',
+        path: __dirname + '/public_html',
 
         publicPath: isProd ? '/' : 'http://localhost:8080/',
 

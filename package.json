@@ -1,12 +1,12 @@
 {
   "name": "montydawsonv2",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "My personal website",
   "main": "public/index.html",
   "scripts": {
-    "build": "rimraf public && webpack --bail --progress --profile",
+    "build": "rimraf public_html && webpack --bail --progress --profile",
     "dev": "webpack-dev-server --hot --inline --host 0.0.0.0",
-    "serve": "npm run build && node node_modules/http-server/bin/http-server",
+    "serve": "npm run build && node node_modules/http-server/bin/http-server public_html",
     "start": "npm run serve"
   },
   "repository": {
