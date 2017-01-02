@@ -2,6 +2,7 @@ import style from '../style/index.scss';
 import DescriptionCrawler from './components/Description-Crawler.js';
 import ContextMenu from './components/Context-Menu.js';
 import ViewHeightFix from './components/View-Height-Fix.js';
+import KeyboardNav from './components/Keyboard-Nav.js';
 import OfflinePlugin from 'offline-plugin/runtime';
 
 (() => {
@@ -19,6 +20,13 @@ import OfflinePlugin from 'offline-plugin/runtime';
     }]);
 
     const viewHeightFix = new ViewHeightFix(['header', 'main', 'footer']);
+
+    const keyboardNavigation = new KeyboardNav([{
+        key: [9, 13],
+        fn: crawler.crawlNext.bind(crawler),
+        prevent: true,
+        heights: [0, '50vh']
+      }]);
 
     const offline = OfflinePlugin.install();
 
