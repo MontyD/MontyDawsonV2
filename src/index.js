@@ -22,7 +22,7 @@ import OfflinePlugin from 'offline-plugin/runtime';
     const viewHeightFix = new ViewHeightFix(['header', 'main', 'footer']);
 
     const keyboardNavigation = new KeyboardNav([{
-        key: [9, 13],
+        key: [9, 13, 37, 39],
         fn: crawler.crawlNext.bind(crawler),
         prevent: true,
         heights: [0, '50vh']
