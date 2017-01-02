@@ -6,7 +6,7 @@ class ViewHeightFix {
             elements.forEach(el => {
                 let element = document.querySelector(el);
                 if (element) {
-                    element.style.height = String(window.innerHeight + 100) + 'px';
+                    element.style.height = String(window.innerHeight + 20) + 'px';
                 }
             });
         }

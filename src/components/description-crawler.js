@@ -44,13 +44,16 @@ class DescriptionCrawler {
     }
 
     incrementIndex() {
+
       this.index++;
       if (this.index >= this.data.length) {
         this.index = 0;
       }
+
     }
 
     randomiseArray(array) {
+
       let currentIndex = array.length, temporaryValue, randomIndex;
 
       while (currentIndex) {
@@ -62,6 +65,7 @@ class DescriptionCrawler {
       }
 
       return array;
+
     }
 
 }

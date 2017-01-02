@@ -21,7 +21,9 @@ header {
     article {
         width       : 95%;
         max-width   : $container;
-        border-right: 1px solid $lightGrey;
+        @media(min-width: 500px) {
+          border-right: 1px solid $lightGrey;
+        }
 
         p {
             text-align: left;
