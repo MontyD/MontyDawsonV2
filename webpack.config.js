@@ -71,8 +71,8 @@ module.exports = (function() {
               excludes: ['**/.*', '**/*.map', '**/*.json']
             }),
             new FaviconsWebpackPlugin({
-                logo: './src/favicon.png',
-                background: '#0D47A1'
+                logo: './src/public/favicon.png',
+                background: '#E0E0E0'
             }),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin(),

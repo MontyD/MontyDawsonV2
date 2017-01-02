@@ -4,7 +4,7 @@
   "description": "My personal website",
   "main": "public/index.html",
   "scripts": {
-    "build": "rimraf dist && webpack --bail --progress --profile",
+    "build": "rimraf public && webpack --bail --progress --profile",
     "dev": "webpack-dev-server --hot --inline --host 0.0.0.0",
     "serve": "npm run build && node node_modules/http-server/bin/http-server",
     "start": "npm run serve"
