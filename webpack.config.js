@@ -1,19 +1,19 @@
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-var OffLinePlugin = require('offline-plugin');
-var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const OffLinePlugin = require('offline-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-var ENV = process.env.npm_lifecycle_event;
-var isProd = ENV === 'build';
+const ENV = process.env.npm_lifecycle_event;
+const isProd = ENV === 'build';
 
 module.exports = (function() {
     'use strict';
 
-    var config = {};
+    let config = {};
 
     config.entry = {
         app: './src/index.js'
@@ -62,16 +62,20 @@ module.exports = (function() {
         }),
         new HtmlWebpackInlineSourcePlugin(),
         new ExtractTextPlugin('[name].[hash].css'),
-        new OffLinePlugin(),
-        new FaviconsWebpackPlugin({
-            logo: './src/favicon.png',
-            background: '#0D47A1'
-        })
     ];
 
     if (isProd) {
         config.plugins.push(
             new webpack.NoErrorsPlugin(),
+            new OffLinePlugin({
+              caches: {
+                main: ['*.png', '*.ico', '*.js', '*.css', 'manifest.json', 'manifest.webapp']
+              }
+            }),
+            new FaviconsWebpackPlugin({
+                logo: './src/favicon.png',
+                background: '#0D47A1'
+            }),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin(),
             new CopyWebpackPlugin([{
