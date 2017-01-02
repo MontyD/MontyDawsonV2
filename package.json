@@ -1,6 +1,6 @@
 {
   "name": "montydawsonv2",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "My personal website",
   "main": "public/index.html",
   "scripts": {
