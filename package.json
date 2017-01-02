@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
     "dev": "webpack-dev-server --hot --inline --host 0.0.0.0",
-    "start": "npm run build"
+    "serve": "npm run build && node node_modules/http-server/bin/http-server",
+    "start": "npm run serve"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "file-loader": "^0.9.0",
     "html-webpack-inline-source-plugin": "0.0.6",
     "html-webpack-plugin": "^2.24.1",
+    "http-server": "^0.9.0",
     "node-sass": "^4.1.1",
     "offline-plugin": "^4.5.3",
     "postcss-loader": "^1.2.1",

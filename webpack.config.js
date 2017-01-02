@@ -21,7 +21,7 @@ module.exports = (function() {
 
     config.output = {
 
-        path: __dirname + '/dist',
+        path: __dirname + '/public',
 
         publicPath: isProd ? '/' : 'http://localhost:8080/',
 
@@ -68,9 +68,7 @@ module.exports = (function() {
         config.plugins.push(
             new webpack.NoErrorsPlugin(),
             new OffLinePlugin({
-              caches: {
-                main: ['*.png', '*.ico', '*.js', '*.css', 'manifest.json', 'manifest.webapp']
-              }
+              excludes: ['**/.*', '**/*.map', '**/*.json']
             }),
             new FaviconsWebpackPlugin({
                 logo: './src/favicon.png',
