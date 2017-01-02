@@ -1,8 +1,8 @@
 import style from '../style/index.scss';
-import DescriptionCrawler from './components/Description-Crawler.js';
-import ContextMenu from './components/Context-Menu.js';
-import ViewHeightFix from './components/View-Height-Fix.js';
-import KeyboardNav from './components/Keyboard-Nav.js';
+import DescriptionCrawler from './components/description-crawler.js';
+import ContextMenu from './components/context-menu.js';
+import ViewHeightFix from './components/view-height-fix.js';
+import KeyboardNav from './components/keyboard-nav.js';
 import OfflinePlugin from 'offline-plugin/runtime';
 
 (() => {
