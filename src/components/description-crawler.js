@@ -1,4 +1,4 @@
-import attachEvent from './attach-event.js';
+import { attachEvent } from '../dom';
 
 class DescriptionCrawler {
 

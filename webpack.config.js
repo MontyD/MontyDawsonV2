@@ -1,5 +1,7 @@
 const webpack = require('webpack');
+const path = require('path');
 const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -27,32 +29,42 @@ module.exports = (function() {
 
         filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
 
-        chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
-
-
     };
 
     config.module = {
-        loaders: [{
+        rules: [{
             test: /\.js$/,
-            loader: 'babel',
-            exclude: /node_modules/
+            loader: 'babel-loader',
+            exclude: path.resolve(__dirname, 'node_modules')
         }, {
             test: /\.scss$/,
-            loader: ExtractTextPlugin.extract('style-loader', 'css-loader?postcss-loader!sass-loader!')
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: function() {
+                                return [
+                                    autoprefixer,
+                                    cssnano
+                                ];
+                            }
+                        }
+                    },
+                    'sass-loader'
+                ]
+            })
         }, {
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-            loader: 'file'
+            loader: 'file-loader'
         }, {
             test: /\.html$/,
-            loader: 'raw'
+            loader: 'raw-loader'
         }]
     };
-    config.postcss = [
-        autoprefixer({
-            browsers: ['last 2 version']
-        })
-    ];
 
     config.plugins = [
         new HtmlWebpackPlugin({
@@ -68,7 +80,7 @@ module.exports = (function() {
         config.plugins.push(
             new webpack.NoErrorsPlugin(),
             new OffLinePlugin({
-              excludes: ['**/.*', '**/*.map', '**/*.json']
+                excludes: ['**/.*', '**/*.map', '**/*.json']
             }),
             new FaviconsWebpackPlugin({
                 logo: './src/public/favicon.png',
@@ -81,10 +93,11 @@ module.exports = (function() {
             }])
         );
     }
-
+    config.devtool = 'source-map';
     config.devServer = {
         contentBase: './src/public'
-    };
+    }
+
 
     return config;
 })();
