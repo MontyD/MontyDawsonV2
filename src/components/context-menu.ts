@@ -1,8 +1,16 @@
 import { attachEvent } from '../dom';
 
+interface LinkConfig {
+    name: string,
+    href: string
+}
+
 class ContextMenu {
 
-    constructor(links) {
+    public element: HTMLElement;
+    public open: boolean;
+
+    constructor(links: Array<LinkConfig>) {
         if (!links || !links.length) {
             return;
         }
@@ -29,7 +37,7 @@ class ContextMenu {
         attachEvent('click', window, this.leftClick.bind(this));
     }
 
-    rightClick(e) {
+    rightClick(e?: MouseEvent) {
         if (e) {
             e.preventDefault();
         }
@@ -40,8 +48,10 @@ class ContextMenu {
             this.element.style.top = '-500px';
             return;
         }
-        this.element.style.left = e.pageX + 'px';
-        this.element.style.top = e.pageY + 'px';
+        if (e) {
+            this.element.style.left = e.pageX + 'px';
+            this.element.style.top = e.pageY + 'px';
+        }
         this.element.className = 'context-menu open';
     }
 

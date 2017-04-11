@@ -6,6 +6,7 @@ I decided to simplify my website - the first version was basically a job advert 
 ## Future work
 - Rewrite the JS in TypeScript.
 - Add more easter eggs.
+- Mess around with canvas.
 
 ## Installation
 Clone, make sure you have node installed, then:

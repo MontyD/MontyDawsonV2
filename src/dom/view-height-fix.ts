@@ -1,12 +1,12 @@
 class ViewHeightFix {
 
-    constructor(elements) {
+    constructor(elements: Array<string>) {
 
         if (!this.isMobile()) {
             return;
         }
         elements.forEach(el => {
-            let element = document.querySelector(el);
+            let element = <HTMLElement>document.querySelector(el);
             if (element) {
                 element.style.height = String(window.innerHeight + 20) + 'px';
             }
@@ -14,7 +14,7 @@ class ViewHeightFix {
 
     }
 
-    isMobile() {
+    private isMobile(): boolean {
         return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     }
 

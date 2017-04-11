@@ -1,12 +1,17 @@
 import { attachEvent } from '../dom';
 
+interface KeyMap {
+  key: number | Array<number>,
+  heights: Array<number|string>,
+  prevent: boolean,
+  fn: Function
+}
+
 class KeyboardNav {
 
-  constructor(keyMappings) {
+  private keyMappings: Array<KeyMap>;
 
-    if (!keyMappings || !keyMappings.length) {
-      return false;
-    }
+  constructor(keyMappings: Array<KeyMap>) {
 
     this.keyMappings = keyMappings;
 
@@ -14,14 +19,16 @@ class KeyboardNav {
 
   }
 
-  keyDown(e) {
+  keyDown(e: KeyboardEvent) {
 
       let keyCode = e.keyCode;
       let target = this.keyMappings
                     .filter(
                       item =>
                         item.key === keyCode ||
-                        item.key.indexOf && item.key.indexOf(keyCode) > -1
+                        typeof item.key !== 'number' && 
+                        item.key.indexOf && 
+                        item.key.indexOf(keyCode) > -1
                     )[0];
 
       if (!target || !this.checkHeights(target.heights)) {
@@ -35,21 +42,17 @@ class KeyboardNav {
       return target.fn();
   }
 
-  checkHeights(heights) {
+  private checkHeights(heights: Array<number|string>) {
 
-    if (!heights) {
-      return true;
-    }
-
-    let sanitizedHeights = [];
+    let sanitizedHeights: Array<number> = [];
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
     heights.forEach(height => {
       let newHeight;
-      if (typeof height === 'number' && !isNaN(height)) {
+      if (typeof height === 'number') {
         return sanitizedHeights.push(height);
       }
-      if (height.indexOf('vh') > -1) {
+      if (typeof height === 'string' && height.indexOf('vh') > -1) {
         newHeight = String(height).replace(/[A-Z]/gi, '');
         newHeight = parseInt(newHeight);
         if (!isNaN(newHeight)) {

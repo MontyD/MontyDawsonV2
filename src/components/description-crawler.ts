@@ -2,8 +2,14 @@ import { attachEvent } from '../dom';
 
 class DescriptionCrawler {
 
-    constructor(element) {
+    public data: Array<string>;
 
+    private element: HTMLElement;
+    private dotdotdot: HTMLElement;
+    private index: number;
+
+    constructor(element: HTMLElement) {
+      console.log('here');
         this.element = element;
         this.data = this.element.innerHTML.split('. ');
         this.data = this.randomiseArray(this.data);
@@ -18,18 +24,7 @@ class DescriptionCrawler {
 
     }
 
-    createLinkElementFromData(data) {
-
-        let element = document.createElement('a');
-        element.href = '#';
-        element.title = data;
-        element.innerHTML = data;
-        attachEvent('click', element, this.crawlNext.bind(this));
-        return element;
-
-    }
-
-    crawlNext(e) {
+    public crawlNext(e?: MouseEvent) {
 
       if (e) {
         e.preventDefault();
@@ -43,7 +38,18 @@ class DescriptionCrawler {
 
     }
 
-    incrementIndex() {
+    private createLinkElementFromData(data: string) {
+
+        let element = document.createElement('a');
+        element.href = '#';
+        element.title = data;
+        element.innerHTML = data;
+        attachEvent('click', element, this.crawlNext.bind(this));
+        return element;
+
+    }
+
+    private incrementIndex() {
 
       this.index++;
       if (this.index >= this.data.length) {
@@ -52,7 +58,7 @@ class DescriptionCrawler {
 
     }
 
-    randomiseArray(array) {
+    private randomiseArray(array: Array<string>) {
 
       let currentIndex = array.length, temporaryValue, randomIndex;
 

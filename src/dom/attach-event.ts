@@ -1,4 +1,4 @@
-function attachEvent(evnt, elem, func) {
+function attachEvent(evnt: string, elem: any, func: Function) {
     'use stict';
 
     if (elem.addEventListener) {

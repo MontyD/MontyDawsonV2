@@ -18,7 +18,15 @@ module.exports = (function() {
     let config = {};
 
     config.entry = {
-        app: './src/index.js'
+        app: './src/index.ts'
+    };
+
+    config.resolve = {
+        extensions: [
+            '.webpack.js',
+            '.js',
+            '.ts',
+        ]
     };
 
     config.output = {
@@ -33,8 +41,8 @@ module.exports = (function() {
 
     config.module = {
         rules: [{
-            test: /\.js$/,
-            loader: 'babel-loader',
+            test: /\.ts$/,
+            loader: 'awesome-typescript-loader',
             exclude: path.resolve(__dirname, 'node_modules')
         }, {
             test: /\.scss$/,
@@ -93,10 +101,12 @@ module.exports = (function() {
             }])
         );
     }
-    config.devtool = 'source-map';
+
     config.devServer = {
         contentBase: './src/public'
     }
+
+    config.devtool = 'source-map';
 
 
     return config;
