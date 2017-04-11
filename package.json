@@ -7,7 +7,9 @@
     "build": "rimraf public_html && webpack --bail --progress --profile",
     "dev": "webpack-dev-server --hot --inline",
     "serve": "npm run build && node node_modules/http-server/bin/http-server public_html",
-    "start": "npm run serve"
+    "start": "npm run serve",
+    "test": "node ./node_modules/jest/bin/jest",
+    "test-watch": "node ./node_modules/jest/bin/jest --watch"
   },
   "repository": {
     "type": "git",
@@ -42,10 +44,12 @@
     "html-webpack-inline-source-plugin": "0.0.6",
     "html-webpack-plugin": "2.24.1",
     "http-server": "0.9.0",
+    "jest": "^19.0.2",
     "node-sass": "4.1.1",
     "offline-plugin": "4.5.3",
     "postcss-loader": "1.2.1",
     "raw-loader": "0.5.1",
+    "retyped-jest-tsd-ambient": "^0.1.18-0",
     "rimraf": "2.5.4",
     "sass-loader": "4.1.1",
     "serviceworker-webpack-plugin": "0.1.7",
@@ -53,5 +57,23 @@
     "typescript": "2.2.2",
     "webpack": "2.3.3",
     "webpack-dev-server": "2.4.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ],
+    "transform": {
+      "^.+\\.(ts)$": "<rootDir>/tests-preprocessor.js"
+    },
+    "testMatch": [
+      "**/*.test.(ts|js)"
+    ]
   }
 }

@@ -5,15 +5,15 @@
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "types": [
-      "node"
+      "node",
+      "jest-tsd-ambient"
     ]
   },
   "exclude": [
     "node_modules",
     "dist",
-    "*.test.ts",
     "webpack.config.js"
   ]
 }
