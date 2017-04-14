@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/MontyD/MontyDawsonV2#readme",
   "devDependencies": {
+    "@types/jest": "^19.2.2",
     "@types/node": "^7.0.12",
     "autoprefixer": "6.5.4",
     "awesome-typescript-loader": "^3.1.2",
@@ -49,7 +50,6 @@
     "offline-plugin": "4.5.3",
     "postcss-loader": "1.2.1",
     "raw-loader": "0.5.1",
-    "retyped-jest-tsd-ambient": "^0.1.18-0",
     "rimraf": "2.5.4",
     "sass-loader": "4.1.1",
     "serviceworker-webpack-plugin": "0.1.7",

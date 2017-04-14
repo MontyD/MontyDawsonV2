@@ -43,7 +43,9 @@ module.exports = (function() {
         rules: [{
             test: /\.ts$/,
             loader: 'awesome-typescript-loader',
-            exclude: path.resolve(__dirname, 'node_modules')
+            exclude: [
+                /node_modules/
+            ]
         }, {
             test: /\.scss$/,
             test: /\.scss$/,

@@ -1,7 +1,10 @@
+import {} from 'jest';
 import attachEvent from './attach-event';
+import MockElement from '../../test-resources/element.resource';
+
 describe('attach-event', () => {
     it('will call addEventListener if available on the element', () => {
-        let mockElement = {
+        let mockElement : MockElement = {
             addEventListener: jest.fn()
         };
 
@@ -12,7 +15,7 @@ describe('attach-event', () => {
     });
 
     it('will call attachEvent if available on the element, and addEventListener is not', () => {
-        let mockElement = {
+        let mockElement : MockElement = {
             attachEvent: jest.fn()
         };
 
@@ -31,7 +34,7 @@ describe('attach-event', () => {
     });
 
     it('will add the function as a key if no addEventListener or attachEvent', () => {
-        let mockElement = {};
+        let mockElement : MockElement = {};
 
         attachEvent('test', mockElement, () => 'hello');
 

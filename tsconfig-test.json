@@ -8,7 +8,7 @@
     "strictNullChecks": false,
     "types": [
       "node",
-      "jest-tsd-ambient"
+      "jest"
     ]
   },
   "exclude": [

@@ -5,11 +5,9 @@ class ViewHeightFix {
         if (!this.isMobile()) {
             return;
         }
-        elements.forEach(el => {
-            let element = <HTMLElement>document.querySelector(el);
-            if (element) {
-                element.style.height = String(window.innerHeight + 20) + 'px';
-            }
+        elements.forEach(selector => {
+            let domElements: Array<HTMLElement> = Array.prototype.slice.call(document.querySelectorAll(selector));
+            domElements.forEach(el =>  el.style.height = String(window.innerHeight + 20) + 'px');
         });
 
     }
