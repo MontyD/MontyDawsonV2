@@ -21,20 +21,23 @@ class Canvas {
     this.setup();
   }
 
-  public setFullScreen() {
+  public setFullScreen(): void {
     this.element.width = window.innerWidth;
     this.element.height = window.innerHeight;
   }
 
-  private setup() {
+  public clear(): void {
+    this.ctx.clearRect(0, 0, this.element.width, this.element.height);
+  }
+
+  private setup(): void {
     if (this.options.fullScreen) {
       this.setFullScreen();
       attachEvent('resize', window, () => raf(this.setFullScreen.bind(this)));
     }
     this.ctx = this.element.getContext('2d')!;
-    this.ctx.clearRect(0, 0, this.element.width, this.element.height);
+    this.clear();
     this.ctx.fillStyle = this.options.backgroundColor || 'transparent';
-    this.ctx.fillRect(0, 0, this.element.width, this.element.height);
   }
 
 }

@@ -9,7 +9,7 @@ class DescriptionCrawler {
     private index: number;
 
     constructor(element: HTMLElement) {
-      console.log('here');
+
         this.element = element;
         this.data = this.element.innerHTML.split('. ');
         this.data = this.randomiseArray(this.data);
