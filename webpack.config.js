@@ -88,7 +88,6 @@ module.exports = (function() {
 
     if (isProd) {
         config.plugins.push(
-            new webpack.NoErrorsPlugin(),
             new OffLinePlugin({
                 excludes: ['**/.*', '**/*.map', '**/*.json']
             }),
