@@ -10,9 +10,8 @@ class ContextMenu {
     private attachEvent: Function;
 
     constructor(links: Array<LinkConfig>, attachEvent: Function) {
-        if (!links || !links.length) {
-            return;
-        }
+
+        this.attachEvent = attachEvent;
 
         let el = document.createElement('nav');
         el.className = 'context-menu closed';

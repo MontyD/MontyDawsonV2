@@ -48,7 +48,6 @@ module.exports = (function() {
             ]
         }, {
             test: /\.scss$/,
-            test: /\.scss$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [
@@ -77,17 +76,17 @@ module.exports = (function() {
     };
 
     config.plugins = [
-        new HtmlWebpackPlugin({
-            template: './src/public/index.html',
-            inject: 'body',
-            inlineSource: '.(js|css)$'
-        }),
-        new HtmlWebpackInlineSourcePlugin(),
         new ExtractTextPlugin('[name].[hash].css'),
     ];
 
     if (isProd) {
         config.plugins.push(
+            new HtmlWebpackPlugin({
+                template: './src/public/index.html',
+                inject: 'body',
+                inlineSource: '.(js|css)$'
+            }),
+            new HtmlWebpackInlineSourcePlugin(),
             new OffLinePlugin({
                 excludes: ['**/.*', '**/*.map', '**/*.json']
             }),
@@ -100,14 +99,19 @@ module.exports = (function() {
                 from: __dirname + '/src/public'
             }])
         );
+    } else {
+        config.plugins.push(
+            new HtmlWebpackPlugin({
+                template: './src/public/index.html',
+                inject: 'body'
+            })
+        )
+        config.devtool = 'source-map';
     }
 
     config.devServer = {
         contentBase: './src/public'
     }
-
-    config.devtool = 'source-map';
-
 
     return config;
 })();

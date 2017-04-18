@@ -1,5 +1,6 @@
 import { Canvas } from '../canvas';
 import Circle from '../canvas/shape/circle';
+import Path from '../canvas/animation/path';
 
 class BackgroundAnimation extends Canvas {
 
