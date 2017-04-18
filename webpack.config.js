@@ -96,7 +96,6 @@ module.exports = (function() {
                 logo: './src/public/favicon.png',
                 background: '#E0E0E0'
             }),
-            new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin(),
             new CopyWebpackPlugin([{
                 from: __dirname + '/src/public'

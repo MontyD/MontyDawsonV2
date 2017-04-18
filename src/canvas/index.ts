@@ -36,7 +36,7 @@ class Canvas {
   private setup(): void {
     if (this.options.fullScreen) {
       this.setFullScreen();
-      attachEvent('resize', window, () => raf(this.setFullScreen.bind(this)));
+      this.attachEvent('resize', window, () => this.raf(this.setFullScreen.bind(this)));
     }
     this.ctx = this.element.getContext('2d')!;
     this.clear();
