@@ -1,18 +1,21 @@
-import { raf, attachEvent } from '../dom';
-
 interface CanvasOptions {
   fullScreen: boolean,
   backgroundColor: string
 };
 
 class Canvas {
-  element: HTMLCanvasElement;
-  options: CanvasOptions;
-  ctx: CanvasRenderingContext2D;
+  public element: HTMLCanvasElement;
+  public ctx: CanvasRenderingContext2D;
 
-  constructor(id: string, options: CanvasOptions) {
+  protected options: CanvasOptions;
+  protected raf: Function;
+  protected attachEvent: Function;
+
+  constructor(id: string, options: CanvasOptions, raf: Function, attachEvent: Function) {
     this.element = <HTMLCanvasElement>document.getElementById(id);
     this.options = options;
+    this.raf = raf;
+    this.attachEvent = attachEvent;
 
     if (!this.element || !this.element.getContext) {
       throw new Error(`Unable to find canvas element by ID ${id}`);

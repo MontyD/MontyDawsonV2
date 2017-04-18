@@ -1,5 +1,3 @@
-import { attachEvent } from '../dom';
-
 interface LinkConfig {
     name: string,
     href: string
@@ -9,8 +7,9 @@ class ContextMenu {
 
     public element: HTMLElement;
     public open: boolean;
+    private attachEvent: Function;
 
-    constructor(links: Array<LinkConfig>) {
+    constructor(links: Array<LinkConfig>, attachEvent: Function) {
         if (!links || !links.length) {
             return;
         }
@@ -33,8 +32,8 @@ class ContextMenu {
 
         this.open = false;
 
-        attachEvent('contextmenu', window, this.rightClick.bind(this));
-        attachEvent('click', window, this.leftClick.bind(this));
+        this.attachEvent('contextmenu', window, this.rightClick.bind(this));
+        this.attachEvent('click', window, this.leftClick.bind(this));
     }
 
     rightClick(e?: MouseEvent) {

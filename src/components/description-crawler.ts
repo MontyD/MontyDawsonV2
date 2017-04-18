@@ -1,5 +1,3 @@
-import { attachEvent } from '../dom';
-
 class DescriptionCrawler {
 
     public data: Array<string>;
@@ -8,11 +6,14 @@ class DescriptionCrawler {
     private dotdotdot: HTMLElement;
     private index: number;
 
-    constructor(element: HTMLElement) {
+    private attachEvent: Function;
+
+    constructor(element: HTMLElement, attachEvent: Function) {
 
         this.element = element;
         this.data = this.element.innerHTML.split('. ');
         this.data = this.randomiseArray(this.data);
+        this.attachEvent = attachEvent;
 
         this.dotdotdot = document.createElement('span');
         this.dotdotdot.innerHTML = '...';
@@ -44,7 +45,7 @@ class DescriptionCrawler {
         element.href = '#';
         element.title = data;
         element.innerHTML = data;
-        attachEvent('click', element, this.crawlNext.bind(this));
+        this.attachEvent('click', element, this.crawlNext.bind(this));
         return element;
 
     }

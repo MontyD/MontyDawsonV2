@@ -1,5 +1,3 @@
-import { attachEvent } from '../dom';
-
 interface KeyMap {
   key: number | Array<number>,
   heights: Array<number|string>,
@@ -10,12 +8,14 @@ interface KeyMap {
 class KeyboardNav {
 
   private keyMappings: Array<KeyMap>;
+  private attachEvent: Function;
 
-  constructor(keyMappings: Array<KeyMap>) {
+  constructor(keyMappings: Array<KeyMap>, attachEvent: Function) {
 
     this.keyMappings = keyMappings;
+    this.attachEvent = attachEvent;
 
-    attachEvent('keydown', window, this.keyDown.bind(this));
+    this.attachEvent('keydown', window, this.keyDown.bind(this));
 
   }
 

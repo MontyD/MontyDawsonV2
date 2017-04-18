@@ -1,7 +1,7 @@
 require('../style/index.scss');
 import DescriptionCrawler from './components/description-crawler';
 import ContextMenu from './components/context-menu';
-import { ViewHeightFix } from './dom';
+import { ViewHeightFix, attachEvent, raf } from './dom';
 import KeyboardNav from './components/keyboard-nav';
 // import OfflinePlugin from 'offline-plugin/runtime';
 import BackgroundAnimation from './components/background-animation';
@@ -10,7 +10,7 @@ import BackgroundAnimation from './components/background-animation';
 
     'use strict';
 
-    const crawler = new DescriptionCrawler(<HTMLElement>document.querySelector('p'));
+    const crawler = new DescriptionCrawler(<HTMLElement>document.querySelector('p'), attachEvent);
 
     // const contextMenu = new ContextMenu([{
     //     name: 'View Source',
@@ -27,10 +27,10 @@ import BackgroundAnimation from './components/background-animation';
         fn: crawler.crawlNext.bind(crawler),
         prevent: true,
         heights: [0, '50vh']
-    }]);
+    }], attachEvent);
     
     // const offline = OfflinePlugin.install();
 
-    const backgroundAnimation = new BackgroundAnimation();
+    const backgroundAnimation = new BackgroundAnimation(raf, attachEvent);
 
 })();

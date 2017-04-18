@@ -1,19 +1,18 @@
 import { Canvas } from '../canvas';
 import Circle from '../canvas/shape/circle';
-import { raf, attachEvent } from '../dom';
 
 class BackgroundAnimation extends Canvas {
 
   private circle: Circle;
 
-  constructor() {
+  constructor(raf: Function, attachEvent: Function) {
     super('background', {
         fullScreen: true,
         backgroundColor: '#E0E0E0'
-    });
+    }, raf, attachEvent);
     this.circle = new Circle(this.element.width / 2, this.element.height / 2, this.element.height / 10, 'red', this.ctx);
     this.circle.draw();
-    attachEvent('mousemove', this.element, this.mouseMove.bind(this));
+    this.attachEvent('mousemove', this.element, this.mouseMove.bind(this));
   }
 
   public mouseMove(e: MouseEvent) {
