@@ -32,9 +32,6 @@ describe('KeyboardNav', () => {
     });
 
     it('will call the event passed in on keypress - mocked', () => {
-        const mockedKeyDownEvent = <KeyboardEvent> {
-            keyCode: testBindings.key
-        };
         new KeyboardNav([testBindings], mockedAttachEvent);
         // This simulates calling the event listener
         registeredCallback(mockedKeyDownEvent);
@@ -51,6 +48,21 @@ describe('KeyboardNav', () => {
         document.dispatchEvent(keyboardEvent);
 
         expect(testBindings.fn).toHaveBeenCalled();
+    });
+
+    it('will only call the function specified by the keyCode', () => {
+        const willNotBeCalledBindings = {
+            key: 1,
+            heights: [0, 100000],
+            prevent: false,
+            fn: jest.fn()
+        };
+        new KeyboardNav([testBindings, willNotBeCalledBindings], mockedAttachEvent);
+        // This simulates calling the event listener
+        registeredCallback(mockedKeyDownEvent);
+        
+        expect(testBindings.fn).toHaveBeenCalled();
+        expect(willNotBeCalledBindings.fn).not.toHaveBeenCalled();
     });
 
 
