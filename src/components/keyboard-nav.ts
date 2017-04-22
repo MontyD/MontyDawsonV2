@@ -75,3 +75,6 @@ class KeyboardNav {
 }
 
 export default KeyboardNav;
+export {
+  KeyMap
+}
