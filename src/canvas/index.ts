@@ -3,7 +3,7 @@ interface CanvasOptions {
   backgroundColor: string
 };
 
-class Canvas {
+abstract class Canvas {
   public element: HTMLCanvasElement;
   public ctx: CanvasRenderingContext2D;
 
@@ -22,6 +22,14 @@ class Canvas {
     }
 
     this.setup();
+  }
+
+  get center(): [number, number] {
+    return [this.element.width / 2, this.element.height / 2];
+  }
+  
+  get bounds(): [number, number, number, number] {
+    return [0, 0, this.element.width, this.element.height];
   }
 
   public setFullScreen(): void {

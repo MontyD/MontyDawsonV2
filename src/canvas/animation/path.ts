@@ -5,6 +5,7 @@ class Path {
     
 
     constructor(ctx: CanvasRenderingContext2D) {
+        this.ctx = ctx;
         
     }
 }
