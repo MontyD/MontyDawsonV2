@@ -16,12 +16,12 @@ class Circle {
         this.ctx = ctx;
     }
 
-    public draw(x?: number, y?: number, radius?: number): void {
-        if (x) {
-            this.centerX = x;
+    public draw(centerX?: number, centerY?: number, radius?: number): void {
+        if (centerX) {
+            this.centerX = centerX;
         }
-        if(y) {
-            this.centerY = y;
+        if(centerY) {
+            this.centerY = centerY;
         }
         if (radius) {
             this.radius = radius;

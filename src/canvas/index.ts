@@ -38,7 +38,7 @@ abstract class Canvas {
   }
 
   public clear(): void {
-    this.ctx.clearRect(0, 0, this.element.width, this.element.height);
+    this.ctx.clearRect.apply(this.ctx, this.bounds);
   }
 
   private setup(): void {
