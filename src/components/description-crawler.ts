@@ -12,6 +12,7 @@ class DescriptionCrawler {
 
         this.element = element;
         this.data = this.element.innerHTML.split('. ');
+        this.data = this.data.map(description => description.replace(/\.$/, ''));
         this.data = this.randomiseArray(this.data);
         this.attachEvent = attachEvent;
 

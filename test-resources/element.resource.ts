@@ -1,7 +1,8 @@
 interface MockElement {
     addEventListener?: any,
     attachEvent?: any,
-    test?: any
+    innerHTML?: string,
+    appendChild: any
 }
 
 export default MockElement;
