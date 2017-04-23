@@ -4,6 +4,7 @@ import DescriptionCrawler from './components/description-crawler';
 import ContextMenu from './components/context-menu';
 import { ViewHeightFix, attachEvent, raf } from './dom';
 import KeyboardNav from './components/keyboard-nav';
+import { Colors } from './constants';
 import BackgroundAnimation from './components/background-animation';
 
 const OfflinePlugin: any = require('offline-plugin/runtime');
@@ -33,6 +34,6 @@ const OfflinePlugin: any = require('offline-plugin/runtime');
         heights: [0, '50vh']
     }], attachEvent);
 
-    const backgroundAnimation = new BackgroundAnimation(raf, attachEvent);
+    const backgroundAnimation = new BackgroundAnimation(Colors, raf, attachEvent);
 
 })();

@@ -5,24 +5,34 @@ import { Colors } from '../constants';
 
 class BackgroundAnimation extends Canvas {
 
-  private circle: Circle;
-  private color: string;
+  private circles: Array<Circle>;
+  private colors: Array<string>;
 
-  constructor(raf: Function, attachEvent: Function) {
+  constructor(colors: Array<string>, raf: Function, attachEvent: Function) {
     super('background', {
         fullScreen: true,
         backgroundColor: '#E0E0E0'
     }, raf, attachEvent);
-    this.color = Colors[Math.floor(Math.random() * Colors.length)];
-    this.circle = new Circle(this.element.width / 2, this.element.height / 2, this.element.height / 10, this.color, this.ctx);
-    this.circle.draw();
-    this.attachEvent('mousemove', this.element, this.mouseMove.bind(this));
+    this.colors = colors;
+    this.circles = colors.map((color, index) => {
+      let circle = new Circle(this.center[0], this.center[1], this.shortestSide / 2.2, color, this.ctx);
+      circle.draw();
+      return circle;
+    });
+    this.on('mousemove', this.mouseMove.bind(this));
+    this.on('resize', this.resize.bind(this));
   }
 
   public mouseMove(e: MouseEvent) {
-    this.clear();
-    this.circle.draw(e.pageX - this.element.offsetLeft, e.pageY - this.element.offsetTop);
+    console.log('mousemove');
   };
+
+  private resize(): void {
+    this.clear();
+    this.circles.forEach(circle => {
+      circle.draw(this.center[0], this.center[1], this.shortestSide / 2.2);
+    });
+  }
 
 }
 

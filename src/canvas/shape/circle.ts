@@ -16,16 +16,10 @@ class Circle {
         this.ctx = ctx;
     }
 
-    public draw(centerX?: number, centerY?: number, radius?: number): void {
-        if (centerX) {
-            this.centerX = centerX;
-        }
-        if(centerY) {
-            this.centerY = centerY;
-        }
-        if (radius) {
-            this.radius = radius;
-        }
+    public draw(centerX: number = this.centerX, centerY: number = this.centerY, radius: number = this.radius): void {
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.radius = radius;
         raf(() => {
             this.ctx.beginPath();
             this.ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);

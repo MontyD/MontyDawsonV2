@@ -1,17 +1,26 @@
-interface CanvasOptions {
+interface IcanvasOptions {
   fullScreen: boolean,
   backgroundColor: string
 };
+
+type listenableEvent = 'resize' | 'mousemove';
+
+interface Ievent {
+  type: listenableEvent,
+  callback: Function
+}
 
 abstract class Canvas {
   public element: HTMLCanvasElement;
   public ctx: CanvasRenderingContext2D;
 
-  protected options: CanvasOptions;
+  protected options: IcanvasOptions;
   protected raf: Function;
   protected attachEvent: Function;
 
-  constructor(id: string, options: CanvasOptions, raf: Function, attachEvent: Function) {
+  private events: Array<Ievent> = [];
+
+  constructor(id: string, options: IcanvasOptions, raf: Function, attachEvent: Function) {
     this.element = <HTMLCanvasElement>document.getElementById(id);
     this.options = options;
     this.raf = raf;
@@ -27,9 +36,43 @@ abstract class Canvas {
   get center(): [number, number] {
     return [this.element.width / 2, this.element.height / 2];
   }
-  
+
   get bounds(): [number, number, number, number] {
     return [0, 0, this.element.width, this.element.height];
+  }
+
+  get shortestSide(): number {
+    if (this.element.height < this.element.width) {
+      return this.element.height;
+    }
+    return this.element.width;
+  }
+
+  public on(evnt: listenableEvent, callback: Function): number {
+    return this.events.push({
+      type: evnt,
+      callback: callback
+    });
+  }
+
+  public off(evnt?: listenableEvent, callback?: Function, index?: number): void {
+    if (index) {
+      this.events.splice(index, 1);
+      return;
+    }
+    if (evnt && callback) {
+      this.events = this.events.filter(event => {
+        return !(event.type === evnt && event.callback === callback);
+      });
+    }
+  }
+
+  public emit(evnt: listenableEvent): void {
+    this.events.forEach(event => {
+      if (event.type === evnt) {
+        event.callback();
+      }
+    });
   }
 
   public setFullScreen(): void {
@@ -44,8 +87,12 @@ abstract class Canvas {
   private setup(): void {
     if (this.options.fullScreen) {
       this.setFullScreen();
-      this.attachEvent('resize', window, () => this.raf(this.setFullScreen.bind(this)));
+      this.on('resize', this.setFullScreen.bind(this));
     }
+
+    this.attachEvent(<listenableEvent>'resize', window, () => this.raf(this.emit.bind(this, <listenableEvent>'resize')));
+    this.attachEvent(<listenableEvent>'mousemove', this.element, () => this.raf(this.emit.bind(this, <listenableEvent>'mousemove')));
+
     this.ctx = this.element.getContext('2d')!;
     this.clear();
     this.ctx.fillStyle = this.options.backgroundColor || 'transparent';
@@ -55,5 +102,5 @@ abstract class Canvas {
 
 export {
   Canvas,
-  CanvasOptions
+  IcanvasOptions
 };
