@@ -33,8 +33,8 @@ abstract class Canvas {
     this.setup();
   }
 
-  get center(): [number, number] {
-    return [this.element.width / 2, this.element.height / 2];
+  get center(): { [key: string]: number, x: number, y: number} {
+    return { x: this.element.width / 2, y: this.element.height / 2 };
   }
 
   get bounds(): [number, number, number, number] {
