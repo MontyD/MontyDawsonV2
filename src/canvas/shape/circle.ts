@@ -2,10 +2,16 @@ import { raf } from '../../dom';
 
 class Circle {
 
+    public preDraw: Function = () => null;
+
     private centerX: number;
     private centerY: number;
     private radius: number;
     private colour: string;
+    private shadow: {
+        color: string,
+        blur: number
+    };
     private ctx: CanvasRenderingContext2D;
     private aniFunction: Function = (ctx: CanvasRenderingContext2D) => null;
 
@@ -22,6 +28,7 @@ class Circle {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
+        this.preDraw(this.ctx);
         
         this.ctx.beginPath();
         this.ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
@@ -34,12 +41,6 @@ class Circle {
         this.ctx.shadowColor = colour;
         this.ctx.shadowBlur = blur;
     }
-
-    set animationFunction(animationFunction: Function) {
-        this.aniFunction = animationFunction;
-    }
-
-
 
 }
 

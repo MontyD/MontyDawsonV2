@@ -1,13 +1,15 @@
 
 class OrganicSkew {
 
-    private skewFactor: number = Math.random();
-    private index = 0;
+    constructor(
+        private skewFactor: number = Math.random(),
+        private index = 0
+    ) {
+        this.animate = this.animate.bind(this);
+     }
 
-    public draw(context: CanvasRenderingContext2D) {
-        // TODO - fix this
-        this.index++;
-        context.setTransform(1, 0, 0, 1, this.index, 0);
+    public animate(context: CanvasRenderingContext2D) {
+        context.setTransform(this.index++ * this.skewFactor * 0.004, this.index++ * this.skewFactor * 0.0006 , this.index++ * this.skewFactor * 0.0006, 1, this.index++ * this.skewFactor * 0.0006, 0);
     }
 
 }
