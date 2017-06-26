@@ -30,7 +30,7 @@ class BackgroundAnimation extends Canvas {
 
   private resize(): void {
     this.clear();
-    this.circle.draw(this.center[0], this.center[1], this.shortestSide / 2.2);
+    this.circle.draw(this.center.x, this.center.y, this.shortestSide / 2.2);
   }
 
   private update(): void {
