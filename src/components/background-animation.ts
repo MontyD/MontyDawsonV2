@@ -17,7 +17,7 @@ class BackgroundAnimation extends Canvas {
       this.center.x, 
       this.center.y, 
       this.shortestSide / 2.2, 
-      '#ffffff', 
+      '#0D47A1', 
       this.ctx
     );
     this.circleAnimation = new OrganicSkew();
