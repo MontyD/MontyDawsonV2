@@ -1,39 +1,40 @@
 require('../style/index.scss');
 
-import DescriptionCrawler from './components/description-crawler';
-import ContextMenu from './components/context-menu';
-import { ViewHeightFix, attachEvent, raf } from './dom';
-import KeyboardNav from './components/keyboard-nav';
-import { Colors } from './constants';
-import BackgroundAnimation from './components/background-animation';
+import descriptionCrawler from './components/description-crawler';
+import contextMenu from './components/context-menu';
+import { viewHeightFix, attachEvent, raf } from './dom';
+import keyboardNav, { keyMap }  from './components/keyboard-nav';
+import { COLOURS } from './constants';
+import backgroundAnimation from './components/background-animation';
 
-const OfflinePlugin: any = require('offline-plugin/runtime');
+const offlinePlugin: any = require('offline-plugin/runtime');
 
 (() => {
 
-    'use strict';
+  'use strict';
 
-    const offline = OfflinePlugin.install();
+  const offline = offlinePlugin.install();
 
-    const crawler = new DescriptionCrawler(<HTMLElement>document.querySelector('p'), attachEvent);
+  const crawler = new descriptionCrawler(<HTMLElement>document.querySelector('p'), attachEvent);
 
-    const contextMenu = new ContextMenu([{
-        name: 'View Source',
-        href: 'https://github.com/MontyD/MontyDawsonV2'
-    }, {
-        name: 'View Horse',
-        href: 'https://www.google.co.uk/search?q=horses&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiKrdOQ5JbRAhUed1AKHbiuBQgQ_AUICCgB&biw=1150&bih=671'
-    }], attachEvent);
+  const menu = new contextMenu([{
+    name: 'View Source',
+    href: 'https://github.com/MontyD/MontyDawsonV2',
+  }, {
+    name: 'View Horse',
+    href: 'https://www.google.co.uk/search?q=horses&source=lnms&tbm=isch',
+  }],                          attachEvent);
 
-    const viewHeightFix = new ViewHeightFix(['header', 'main', 'footer']);
+  const vhFix = new viewHeightFix(['header', 'main', 'footer']);
 
-    const keyboardNavigation = new KeyboardNav([{
-        key: [9, 13, 37, 39],
-        fn: crawler.crawlNext.bind(crawler),
-        prevent: true,
-        heights: [0, '50vh']
-    }], attachEvent);
+  const keyboardNavigation = new keyboardNav([
+    new keyMap(
+      [9, 13, 37, 39],
+      [0, '50vh'],
+      true,
+      crawler.crawlNext.bind(crawler),
+  )],                                        attachEvent);
 
-    const backgroundAnimation = new BackgroundAnimation(Colors, raf, attachEvent);
+  const backgroundAni = new backgroundAnimation(COLOURS, raf, attachEvent);
 
 })();

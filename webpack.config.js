@@ -33,7 +33,7 @@ module.exports = (function() {
 
         path: __dirname + '/public_html',
 
-        publicPath: isProd ? '/' : 'http://localhost:8080/',
+        publicPath: '/',
 
         filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
 
@@ -42,6 +42,14 @@ module.exports = (function() {
     config.module = {
         rules: [{
             test: /\.ts$/,
+            enforce: 'pre',
+            loader: 'tslint-loader',
+            options: { 
+                configFile: 'tslint.json',
+                fix: true
+             }
+        }, {
+        test: /\.ts$/,
             loader: 'awesome-typescript-loader',
             exclude: [
                 /node_modules/
@@ -110,7 +118,8 @@ module.exports = (function() {
     }
 
     config.devServer = {
-        contentBase: './src/public'
+        contentBase: './src/public',
+        host: '0.0.0.0'
     }
 
     return config;

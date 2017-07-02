@@ -1,81 +1,83 @@
-class DescriptionCrawler {
+class descriptionCrawler {
 
-    public data: Array<string>;
+  public data: string[];
 
-    private element: HTMLElement;
-    private dotdotdot: HTMLElement;
-    private index: number;
+  private element: HTMLElement;
+  private dotdotdot: HTMLElement;
+  private index: number;
 
-    private attachEvent: Function;
+  private attachEvent: Function;
 
-    constructor(element: HTMLElement, attachEvent: Function) {
+  constructor(element: HTMLElement, attachEvent: Function) {
 
-        this.element = element;
-        this.data = this.element.innerHTML.split('. ');
-        this.data = this.data.map(description => description.replace(/\.$/, ''));
-        this.data = this.randomiseArray(this.data);
-        this.attachEvent = attachEvent;
+    this.element = element;
+    this.data = this.element.innerHTML.split('. ');
+    this.data = this.data.map(description => description.replace(/\.$/, ''));
+    this.data = this.randomiseArray(this.data);
+    this.attachEvent = attachEvent;
 
-        this.dotdotdot = document.createElement('span');
-        this.dotdotdot.innerHTML = '...';
-        this.dotdotdot.className = 'dotdotdot';
+    this.dotdotdot = document.createElement('span');
+    this.dotdotdot.innerHTML = '...';
+    this.dotdotdot.className = 'dotdotdot';
 
-        this.index = 0;
+    this.index = 0;
 
-        this.crawlNext();
+    this.crawlNext();
 
+  }
+
+  public crawlNext(e?: MouseEvent) {
+
+    if (e) {
+      e.preventDefault();
     }
 
-    public crawlNext(e?: MouseEvent) {
+    this.element.innerHTML = '';
+    this.element.appendChild(this.createLinkElementFromData(this.data[this.index]));
+    this.element.appendChild(this.dotdotdot);
 
-      if (e) {
-        e.preventDefault();
-      }
+    this.incrementIndex();
 
-      this.element.innerHTML = '';
-      this.element.appendChild(this.createLinkElementFromData(this.data[this.index]));
-      this.element.appendChild(this.dotdotdot);
+  }
 
-      this.incrementIndex();
+  private createLinkElementFromData(data: string) {
 
+    const element = document.createElement('a');
+    element.href = '#';
+    element.title = data;
+    element.innerHTML = data;
+    this.attachEvent('click', element, this.crawlNext.bind(this));
+    return element;
+
+  }
+
+  private incrementIndex() {
+
+    this.index = this.index + 1;
+    if (this.index >= this.data.length) {
+      this.index = 0;
     }
 
-    private createLinkElementFromData(data: string) {
+  }
 
-        let element = document.createElement('a');
-        element.href = '#';
-        element.title = data;
-        element.innerHTML = data;
-        this.attachEvent('click', element, this.crawlNext.bind(this));
-        return element;
+  private randomiseArray(array: string[]) {
 
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+
+    while (currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex = currentIndex - 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
 
-    private incrementIndex() {
+    return array;
 
-      this.index++;
-      if (this.index >= this.data.length) {
-        this.index = 0;
-      }
-
-    }
-
-    private randomiseArray(array: Array<string>) {
-
-      let currentIndex = array.length, temporaryValue, randomIndex;
-
-      while (currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-
-    }
+  }
 
 }
 
-export default DescriptionCrawler;
+export default descriptionCrawler;

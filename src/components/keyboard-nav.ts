@@ -1,16 +1,18 @@
-interface KeyMap {
-  key: number | Array<number>,
-  heights: Array<number|string>,
-  prevent: boolean,
-  fn: Function
+class keyMap {
+  constructor(
+    public key: number | number[],
+    public heights: (number | string)[],
+    public prevent: boolean,
+    public fn: Function,
+  ) { }
 }
 
-class KeyboardNav {
+class keyboardNav {
 
-  private keyMappings: Array<KeyMap>;
+  private keyMappings: keyMap[];
   private attachEvent: Function;
 
-  constructor(keyMappings: Array<KeyMap>, attachEvent: Function) {
+  constructor(keyMappings: keyMap[], attachEvent: Function) {
 
     this.keyMappings = keyMappings;
     this.attachEvent = attachEvent;
@@ -21,40 +23,40 @@ class KeyboardNav {
 
   keyDown(e: KeyboardEvent) {
 
-      let keyCode = e.keyCode;
-      let target = this.keyMappings
+    const keyCode = e.keyCode;
+    const target = this.keyMappings
                     .filter(
                       item =>
                         item.key === keyCode ||
                         typeof item.key !== 'number' && 
                         item.key.indexOf && 
-                        item.key.indexOf(keyCode) > -1
+                        item.key.indexOf(keyCode) > -1,
                     )[0];
 
-      if (!target || !this.checkHeights(target.heights)) {
-        return;
-      }
+    if (!target || !this.checkHeights(target.heights)) {
+      return;
+    }
 
-      if (target.prevent) {
-        e.preventDefault();
-      }
+    if (target.prevent) {
+      e.preventDefault();
+    }
 
-      return target.fn();
+    return target.fn();
   }
 
-  private checkHeights(heights: Array<number|string>) {
+  private checkHeights(heights: any[]) {
 
-    let sanitizedHeights: Array<number> = [];
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const sanitizedHeights: number[] = [];
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
-    heights.forEach(height => {
+    heights.forEach((height) => {
       let newHeight;
       if (typeof height === 'number') {
         return sanitizedHeights.push(height);
       }
       if (typeof height === 'string' && height.indexOf('vh') > -1) {
         newHeight = String(height).replace(/[A-Z]/gi, '');
-        newHeight = parseInt(newHeight);
+        newHeight = parseInt(newHeight, 10);
         if (!isNaN(newHeight)) {
           newHeight = window.innerHeight * newHeight / 100;
           sanitizedHeights.push(newHeight);
@@ -74,7 +76,7 @@ class KeyboardNav {
 
 }
 
-export default KeyboardNav;
+export default keyboardNav;
 export {
-  KeyMap
-}
+  keyMap,
+};

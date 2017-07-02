@@ -1,13 +1,13 @@
 interface IcanvasOptions {
-  fullScreen: boolean,
-  backgroundColor: string
-};
+  fullScreen: boolean;
+  backgroundColor: string;
+}
 
 type listenableEvent = 'resize' | 'mousemove';
 
-interface Ievent {
-  type: listenableEvent,
-  callback: Function
+interface evt {
+  type: listenableEvent;
+  callback: Function;
 }
 
 abstract class Canvas {
@@ -18,7 +18,7 @@ abstract class Canvas {
   protected raf: Function;
   protected attachEvent: Function;
 
-  private events: Array<Ievent> = [];
+  private events: evt[] = [];
 
   constructor(id: string, options: IcanvasOptions, raf: Function, attachEvent: Function) {
     this.element = <HTMLCanvasElement>document.getElementById(id);
@@ -50,8 +50,8 @@ abstract class Canvas {
 
   public on(evnt: listenableEvent, callback: Function): number {
     return this.events.push({
+      callback,
       type: evnt,
-      callback: callback
     });
   }
 
@@ -61,14 +61,14 @@ abstract class Canvas {
       return;
     }
     if (evnt && callback) {
-      this.events = this.events.filter(event => {
+      this.events = this.events.filter((event) => {
         return !(event.type === evnt && event.callback === callback);
       });
     }
   }
 
   public emit(evnt: listenableEvent): void {
-    this.events.forEach(event => {
+    this.events.forEach((event) => {
       if (event.type === evnt) {
         event.callback();
       }
@@ -90,8 +90,14 @@ abstract class Canvas {
       this.on('resize', this.setFullScreen.bind(this));
     }
 
-    this.attachEvent(<listenableEvent>'resize', window, () => this.raf(this.emit.bind(this, <listenableEvent>'resize')));
-    this.attachEvent(<listenableEvent>'mousemove', this.element, () => this.raf(this.emit.bind(this, <listenableEvent>'mousemove')));
+    this.attachEvent(
+      <listenableEvent>'resize', window, () => {
+        this.raf(this.emit.bind(this, <listenableEvent>'resize'));
+      });
+    this.attachEvent(
+      <listenableEvent>'mousemove', this.element, () => {
+        this.raf(this.emit.bind(this, <listenableEvent>'mousemove'));
+      });
 
     this.ctx = this.element.getContext('2d')!;
     this.clear();
@@ -102,5 +108,5 @@ abstract class Canvas {
 
 export {
   Canvas,
-  IcanvasOptions
+  IcanvasOptions,
 };

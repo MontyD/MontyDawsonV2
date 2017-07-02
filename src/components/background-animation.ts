@@ -1,44 +1,46 @@
 import { Canvas } from '../canvas';
-import Circle from '../canvas/shape/circle';
-import OrganicSkew from '../canvas/animation/organic-skew';
+import circle from '../canvas/shape/circle';
+import organicSkew from '../canvas/animation/organic-skew';
 
-class BackgroundAnimation extends Canvas {
+class backgroundAnimation extends Canvas {
 
-  private circle: Circle;
-  private circleAnimation: OrganicSkew;
+  private circles: circle[];
 
   constructor(private colors: string[], raf: Function, attachEvent: Function) {
     super('background', {
-        fullScreen: true,
-        backgroundColor: '#E0E0E0'
-    }, raf, attachEvent);
+      fullScreen: true,
+      backgroundColor: 'transparent',
+    },    raf, attachEvent);
 
-    this.circle = new Circle(
-      this.center.x, 
-      this.center.y, 
-      this.shortestSide / 2.2, 
-      '#0D47A1', 
-      this.ctx
-    );
-    this.circleAnimation = new OrganicSkew();
-    this.circle.setShadow('rgba(0, 0, 0, 0.1)', 8);
-    this.circle.preDraw = this.circleAnimation.animate;
-    this.circle.draw();
+    this.circles = this.colors.map((color, index) => {
+      const cir: circle = new circle(
+        this.center.x, 
+        this.center.y, 
+        this.shortestSide / 2.2, 
+        color, 
+        this.ctx,
+      );
+      cir.preDraw = (new organicSkew()).animate;
+      cir.draw();
+      return cir;
+    });
     this.on('resize', this.resize.bind(this));
     this.raf(this.update.bind(this));
   }
 
   private resize(): void {
     this.clear();
-    this.circle.draw(this.center.x, this.center.y, this.shortestSide / 2.2);
+    this.circles.forEach((cir) => {
+      cir.draw(this.center.x, this.center.y, this.shortestSide / 2.2);
+    },                   this);
   }
 
   private update(): void {
     this.clear();
-    this.circle.draw();
+    this.circles.forEach(circle => circle.draw());
     this.raf(this.update.bind(this));
   }
 
 }
 
-export default BackgroundAnimation;
+export default backgroundAnimation;
