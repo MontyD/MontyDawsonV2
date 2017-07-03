@@ -11,8 +11,6 @@ const offlinePlugin: any = require('offline-plugin/runtime');
 
 (() => {
 
-  'use strict';
-
   const offline = offlinePlugin.install();
 
   const crawler = new descriptionCrawler(<HTMLElement>document.querySelector('p'), attachEvent);
