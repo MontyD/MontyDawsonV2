@@ -5,7 +5,6 @@ const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const OffLinePlugin = require('offline-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
@@ -18,7 +17,7 @@ module.exports = (function() {
     let config = {};
 
     config.entry = {
-        app: './src/index.ts'
+        app: './src/index.tsx'
     };
 
     config.resolve = {
@@ -26,6 +25,7 @@ module.exports = (function() {
             '.webpack.js',
             '.js',
             '.ts',
+            '.tsx'
         ]
     };
 
@@ -41,9 +41,9 @@ module.exports = (function() {
 
     config.module = {
         rules: [{
-            test: /\.ts$/,
+            test: /\.ts(x)?$/,
             enforce: 'pre',
-            loader: 'tslint-loader',
+            loader: 'awesome-typescript-loader',
             options: { 
                 configFile: 'tslint.json',
                 fix: true
@@ -90,14 +90,9 @@ module.exports = (function() {
     if (isProd) {
         config.plugins.push(
             new HtmlWebpackPlugin({
-                template: './src/public/index.html',
-                inject: 'body',
-                inlineSource: '.(js|css)$'
+                template: './src/public/index.html'
             }),
-            new HtmlWebpackInlineSourcePlugin(),
-            new OffLinePlugin({
-                excludes: ['**/.*', '**/*.map', '**/*.json']
-            }),
+            new OffLinePlugin(),
             new FaviconsWebpackPlugin({
                 logo: './src/public/favicon.png',
                 background: '#E0E0E0'
@@ -110,8 +105,7 @@ module.exports = (function() {
     } else {
         config.plugins.push(
             new HtmlWebpackPlugin({
-                template: './src/public/index.html',
-                inject: 'body'
+                template: './src/public/index.html'
             })
         )
         config.devtool = 'source-map';
@@ -119,7 +113,8 @@ module.exports = (function() {
 
     config.devServer = {
         contentBase: './src/public',
-        host: '0.0.0.0'
+        host: '0.0.0.0',
+        historyApiFallback: true
     }
 
     return config;
