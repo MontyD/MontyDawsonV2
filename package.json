@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --hot --inline",
     "serve": "npm run build && node node_modules/http-server/bin/http-server public_html",
     "start": "npm run serve",
-    "test": "node ./node_modules/jest/bin/jest",
+    "test": "echo No Tests Yet",
     "test-watch": "node ./node_modules/jest/bin/jest --watch"
   },
   "repository": {
