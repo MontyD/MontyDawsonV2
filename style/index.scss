@@ -1,7 +1,6 @@
 @import './variables';
 @import './mixins';
 @import './base';
-@import './context-menu';
 
 header {
     @include panel();
