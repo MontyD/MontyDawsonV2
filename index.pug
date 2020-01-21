@@ -1,40 +1,42 @@
 doctype html
 
-head
-  meta(charset='UTF-8')
-  title Monty Dawson
-  meta(name='viewport' content='width=device-width, initial-scale=1')
-  link(rel="icon" href="./static/favicon.png")
-  link(href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css')
-  link(href='./style/index.scss' rel='stylesheet')
-header
-  article
-    h1 I'm Monty Dawson
-    ul
-      li I'm a fullstack developer
-      li I love a challenge
-      li I have an odd taste in music
-main
-  article
-    h2 Hello
-    p I'm a senior fullstack developer focusing on JavaScript / TypeScript development.
-    p
-      | I have experience with a wide range of technologies and architectures, from Redux-based frontend applications,
-      | to event-sourced microservices, to complex deployment and testing pipelines.
-    p I love working as part of a cross-functional team, helping the people around me grow, and investing in work that I can be proud of.
-    p.text-center
-      a.button(title='CV' href='./static/monty-dawson-cv.pdf') See my CV
-footer
-  article
-    h2 More
-    ul
-      li
-        a(href='https://github.com/montyD/' title='Github') Code
-      li
-        a(href='http://hypem.com/montydawson' title='Music') Music
-      li
-        a(href='https://twitter.com/monty_dawson' title='Twitter') Twitter
-      li
-        a(href='mailto:hello@montydawson.co.uk' title='Email Me') Email
+html
+  head
+    meta(charset='UTF-8')
+    title Monty Dawson
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel="icon" href="./static/favicon.png")
+    link(href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css')
+    link(href='./style/index.scss' rel='stylesheet')
+  body
+    header
+      article
+        h1 I'm Monty Dawson
+        ul
+          li I'm a fullstack developer
+          li I love a challenge
+          li I have an odd taste in music
+    main
+      article
+        h2 Hello
+        p I'm a senior fullstack developer focusing on JavaScript / TypeScript development.
+        p
+          | I have experience with a wide range of technologies and architectures, from Redux-based frontend applications,
+          | to event-sourced microservices, to complex deployment and testing pipelines.
+        p I love working as part of a cross-functional team, helping the people around me grow, and investing in work that I can be proud of.
+        p.text-center
+          a.button(title='CV' href='./static/monty-dawson-cv.pdf') See my CV
+    footer
+      article
+        h2 More
+        ul
+          li
+            a(href='https://github.com/montyD/' title='Github') Code
+          li
+            a(href='http://hypem.com/montydawson' title='Music') Music
+          li
+            a(href='https://twitter.com/monty_dawson' title='Twitter') Twitter
+          li
+            a(href='mailto:hello@montydawson.co.uk' title='Email Me') Email
 
-script(src='./ts/index.ts')
+    script(src='./ts/index.ts')
